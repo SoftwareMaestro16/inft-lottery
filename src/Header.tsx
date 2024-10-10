@@ -10,7 +10,7 @@ interface HeaderProps {
 
 export const Header = ({ setBalance, setAddress }: HeaderProps) => {
     const wallet = useTonWallet();
-    const jettonAddress = '0:ca1fae2684c9bfd7d83053d5735df19780c1260f3daf338b150084c42b6ab473'; 
+    const jettonAddress = 'kQDHlLcQ-OXz-G18tw8vAQgfzF5BOulntDoxZfoekDEBbyee'; 
 
     useEffect(() => {
         if (wallet) {

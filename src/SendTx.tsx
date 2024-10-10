@@ -10,6 +10,7 @@ import {getJettonWalletAddress, waitForTx} from "./tonapi.ts";
 import {useState} from "react";
 import {USDT} from "./constants.ts";
 import './App.css';
+import { MainButton } from "./MainButton.tsx";
 
 interface SendTxProps {
   selectedAmount: number | null;
@@ -20,11 +21,16 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
     const isRestored = useIsConnectionRestored();
     const { open } = useTonConnectModal();
     const [tonConnectUi] = useTonConnectUI();
-    const [txInProgress, setTxInProgress] = useState<'none' | 'jetton' | 'giver'>('none');
-
+    const [txInProgress, setTxInProgress] = useState<'none' | 'jetton'>('none');
+    
     const onSendJettonLottery = async () => {
         if (selectedAmount === null || !wallet) {
             console.error('No amount selected or wallet is not connected');
+            return;
+        }
+
+        if (!wallet) {
+            open();
             return;
         }
        
@@ -32,8 +38,8 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
     
         try {
             const jwAddress = await getJettonWalletAddress(USDT.toRawString(), wallet!.account.address);
-            const smcAddress = Address.parse("kQCrrSnJR9bSL-3mRXl7Ollko-fDY9SkYn_i_AKKecIoUv-f");
-            const decimals = 6;
+            const smcAddress = Address.parse("kQCi-fmiAuPsRnumDWScBcJ_zSO5QeG_Q5hLK43En8yojmci");
+            const decimals = 9;
 
             const innerPayload = beginCell()
                 .storeUint(0xfbf0ec9b, 32) 
@@ -46,7 +52,7 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
                 .storeAddress(smcAddress)
                 .storeUint(0, 2) // response address -- null
                 .storeUint(0, 1)
-                .storeCoins(toNano("0.1"))
+                .storeCoins(toNano("0.0555"))
                 .storeBit(1)
                 .storeRef(innerPayload)
                 .endCell()
@@ -58,7 +64,7 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
                 messages: [
                     {
                         address: jwAddress.toString(),
-                        amount: "155000000", 
+                        amount: "87200000", 
                         payload
                     }
                 ]
@@ -66,58 +72,13 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
             
             const result = await tonConnectUi.sendTransaction(tx, {
                 modals: 'all',
-                notifications: ['error']
+                notifications: ['success', 'error']
             });
     
-            const imMsgCell = Cell.fromBase64(result.boc);
-            const inMsgHash = imMsgCell.hash().toString('hex');
-    
-            try {
-                const tx = await waitForTx(inMsgHash);
-                console.log(tx);
-            } catch (e) {
-                console.error('Error waiting for transaction:', e);
+            if (!result || !result.boc) {
+                console.error('No result received from transaction request');
+                return;
             }
-        } catch (e) {
-            console.error('Error sending transaction:', e);
-        } finally {
-            setTxInProgress('none');
-        }
-    };
-
-    const onSendGiver = async () => {
-        if (!wallet) {
-            console.error('Wallet is not connected');
-            open();
-            return;
-        }
-       
-        setTxInProgress('giver');
-    
-        try {
-            const payloadCell = beginCell()
-                .storeUint(0xeae698e4, 32) 
-                .storeUint(123, 64) 
-                .endCell();
-    
-            const payload = payloadCell.toBoc().toString('base64');
-    
-            const tx: SendTransactionRequest = {
-                validUntil: Math.round(Date.now() / 1000) + 60 * 5,
-                messages: [
-                    {
-                        address: "kQDSWPjYMkGidIqVUA6FpjuykW1YjAV-U3TtR2F2rDXqjNLc",
-                        amount: "55000000", 
-                        payload
-                    }
-                ]
-            };
-            
-            const result = await tonConnectUi.sendTransaction(tx, {
-                modals: 'all',
-                notifications: ['error']
-            });
-    
             const imMsgCell = Cell.fromBase64(result.boc);
             const inMsgHash = imMsgCell.hash().toString('hex');
     
@@ -141,25 +102,19 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
     if (!wallet) {
         // return <button onClick={open}>Connect wallet</button>
     }
-
+    
     return (
+        
         <div>
-            <div className="button-container">
-                <button
-                    className="get-btn"
-                    onClick={onSendGiver}
-                    disabled={txInProgress !== 'none'}
-                >
-                    {txInProgress === 'giver' ? 'Tx in progress...' : 'Get 2000 $USDT (fake)'}
-                </button>
-                <button
-                    className="get-btn"
-                    onClick={onSendJettonLottery}
-                    disabled={selectedAmount === null || txInProgress !== 'none'}
-                >
-                    {txInProgress === 'jetton' ? 'Tx in progress...' : '🎰 Send $USDT 💸'}
-                </button>
-            </div>
+            <MainButton
+                text="Send $INFT"
+                onClick={onSendJettonLottery}
+                color="#4b2352"
+                textColor="#FFFFFF"
+                disabled={!wallet || selectedAmount === null || txInProgress !== 'none'}
+
+            />
+            
         </div>
     );
 };

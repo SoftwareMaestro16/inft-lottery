@@ -17,8 +17,38 @@ function App() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [balance, setBalance] = useState<number | null>(null);
   const [address, setAddress] = useState<string | null>(null);
-  const jettonAddress = '0:ca1fae2684c9bfd7d83053d5735df19780c1260f3daf338b150084c42b6ab473'; 
-
+  const jettonAddress = 'kQDHlLcQ-OXz-G18tw8vAQgfzF5BOulntDoxZfoekDEBbyee'; 
+  
+  useEffect(() => {
+    const starsContainer = document.createElement('div');
+    starsContainer.className = 'stars';
+    document.body.appendChild(starsContainer);
+  
+    for (let i = 0; i < 200; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+  
+      const size = Math.random() * 3 + 1;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+  
+      const delay = Math.random() * 5;
+      const duration = Math.random() * 5 + 5;
+  
+      star.style.left = `${Math.random() * 180}vw`;
+      star.style.top = `-${Math.random() * 10}vh`;
+  
+      star.style.animationDuration = `${duration}s`;
+      star.style.animationDelay = `${delay}s`;
+  
+      starsContainer.appendChild(star);
+    }
+  
+    return () => {
+      document.body.removeChild(starsContainer);
+    };
+  }, []);
+  
   useEffect(() => {
     const isTgCheck = Boolean(window.Telegram?.WebApp?.initData);
 
@@ -26,13 +56,21 @@ function App() {
       WebAppSDK.ready();
       WebAppSDK.enableClosingConfirmation();
       WebAppSDK.expand();
-      WebAppSDK.headerColor = "#ffffff";
+      WebAppSDK.headerColor = "#210f24";
       setIsTg(true);
     }
   }, []);
 
-  const handleMiniButtonClick = (amount: number) => {
-    setSelectedAmount(amount);
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    if (value >= 2000 && value <= 15000) {
+      setSelectedAmount(value);
+    }
+  };
+
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    setSelectedAmount(value);
   };
 
   const handleUpdateBalance = async () => {
@@ -63,18 +101,18 @@ function App() {
             uiPreferences={{
               borderRadius: "m",
               colorsSet: {
-                [THEME.LIGHT]: {
+                [THEME.DARK]: {
                   connectButton: {
-                    background: "#2191d1",
+                    background: "#592c61",
                   },
-                  accent: "#2191d1",
-                  telegramButton: "#2191d1",
+                  accent: "#49244f",
+                  telegramButton: "#592c61",
                   background: {
                     qr: "#ffffff",
-                    tint: "#2191d1",
-                    primary: "#2191d1",
+                    tint: "#55325c",
+                    primary: "#2f1b33",
                     secondary: "#ffffff",
-                    segment: "#2191d1",
+                    segment: "#452a4a",
                   },
                   text: {
                     primary: "#ffffff",
@@ -86,7 +124,7 @@ function App() {
             actionsConfiguration={{
               modals: "all",
               notifications: ["error"],
-              twaReturnUrl: "https://t.me/TestJettonLotteryBot/Start",
+              twaReturnUrl: "https://t.me/InfinityLotteryBot/Bet",
             }}
           >
             <Header setBalance={setBalance} setAddress={setAddress} />
@@ -94,35 +132,47 @@ function App() {
           </TonConnectUIProvider>
 
           <div className="texts-main">
-            <h1 className="first-t">Jetton Lottery</h1>
-            <h2 className="second-t">Testnet</h2>
-            <input type="number" className="styled-input" value={selectedAmount ?? ''} readOnly />
-            <div className="button-group">
-              <button className="mini-btn" onClick={() => handleMiniButtonClick(100)}>100</button>
-              <button className="mini-btn" onClick={() => handleMiniButtonClick(250)}>250</button>
-              <button className="mini-btn" onClick={() => handleMiniButtonClick(500)}>500</button>
+            <h1 className="first-t">$INFT Jetton</h1>
+            <h2 className="second-t">Lottery</h2>
+            <input type="number" className="styled-input" value={selectedAmount ?? ''} onChange={handleAmountChange} />
+            <div className="slider-container">
+              <input
+                type="range"
+                className="slider"
+                min="2000"
+                max="15000"
+                step="100"
+                value={selectedAmount ?? 1000 }
+                onChange={handleSliderChange}
+              />
             </div>
             <div className="styled-input2-container">
               <input
                 type="text"
                 className="styled-input2"
-                value={`$USDT: ${balance !== null ? balance : '~'}`}
+                value={`$INFT: ${balance !== null ? balance : '~'}`}
                 readOnly
               />
-              <button className="update-btn" onClick={handleUpdateBalance}>🔄</button>
+              <button className="update-btn" onClick={handleUpdateBalance}>
+              <img
+                src="https://static-00.iconduck.com/assets.00/reload-icon-2048x2048-opr7i41w.png"
+                alt="reload"
+                style={{ width: '25px', height: '25px' }}
+              />
+            </button>
+
             </div>
-            <div className="links-container">
-              <h3>
-                <a href="https://t.me/testgiver_ton_bot" className="link">Testnet TON</a>
-              </h3>
-              <h3>
-                <a href="https://testnet.tonviewer.com/kQDSWPjYMkGidIqVUA6FpjuykW1YjAV-U3TtR2F2rDXqjNLc" className="link">Giver Contract</a>
-              </h3>
-              <h3>
-                <a href="https://testnet.tonviewer.com/0QCrrSnJR9bSL-3mRXl7Ollko-fDY9SkYn_i_AKKecIoUqJa" className="link">Lottery Contract</a>
-              </h3>
+            <div className="big-buttons">
+              <button className="button-1" onClick={() => window.open('https://tonviewer.com', '_blank')}>
+                Open Tonviewer
+              </button>
+              <button className="button-2" onClick={() => window.open('https://dedust.io/swap/TON/INFT?amount=1000000000', '_blank')}>
+                Buy $INFT on DeDust
+              </button>
             </div>
+
           </div>
+          
         </div>
       )}
     </>

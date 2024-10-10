@@ -55,10 +55,10 @@ export async function getJettonBalance(connectedAddress: string, jettonAddress: 
         console.log('API response:', data); 
         
         const balance = parseFloat(data.balance);
-        const humanReadableBalance = balance / Math.pow(10, 6); 
+        const humanReadableBalance = balance / Math.pow(10, 9); 
         console.log(humanReadableBalance);
         
-        return humanReadableBalance;
+        return Number(humanReadableBalance.toFixed(2));
     } catch (error) {
         console.error('Failed to fetch jetton balance:', error);
         throw error;

@@ -1,6 +1,38 @@
 body {
-    background-color: white;
+    background: linear-gradient(75deg, rgb(10, 10, 10), rgb(75, 30, 83));
 }
+
+@keyframes fall {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh) translateX(100vw);
+      opacity: 0;
+    }
+  }
+  
+  .stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; /* To allow clicking through */
+  }
+  
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background-color: white;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+  
+  
 
 .denied-container {
     display: flex;
@@ -11,7 +43,7 @@ body {
     color: white;
     text-align: center;
     font-size: 24px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Aeroport';
     font-weight: bold;
 }
   
@@ -21,212 +53,148 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: rgb(255, 255, 255); 
+    background: linear-gradient(77deg, rgb(10, 10, 10), rgb(75, 30, 83));
     color: rgb(255, 255, 255); 
-}
-  
-.header {
-    position: absolute;
-    top: 12px;
-    right: -10px;
-    margin: 16px;
 }
 
 .texts-main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -80%;
+    margin-top: -70px; /* Adjusted to move the text and input field lower */
 }
 
 .first-t {
-    color: rgb(56, 166, 230);
+    color: rgb(255, 255, 255);
     font-size: 36px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Aeroport";
     font-weight: bold;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 }
 
 .second-t {
-    color: rgb(56, 166, 230);
+    color: rgb(255, 255, 255);
     font-size: 36px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Aeroport";
     font-weight: bold;
     text-align: center;
-    margin-top: 0px;
+    margin-top: -25px;
 }
 
-@media (max-width: 450px) and (max-height: 1000px) {
-    .header {
-        position: absolute;
-        top: 5px;
-        right: -5px;
-        margin: 16px;
-    }
-    
-    .texts-main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: -80%;
-    }
-    
-    .first-t {
-        color: rgb(56, 166, 230);
-        font-size: 32px;
-        font-family: 'Arial', sans-serif;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 5px;
-    }
-    
-    .second-t {
-        color: rgb(56, 166, 230);
-        font-size: 32px;
-        font-family: 'Arial', sans-serif;
-        font-weight: bold;
-        text-align: center;
-        margin-top: 0px;
-    }
-
-    .button-container {
-        display: flex;
-        position: absolute;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        top: 54%;
-        overflow: hidden;
-        margin-left: -50%;
-    }
-    
-    .get-btn {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        color: white;
-        background-color: rgb(56, 166, 230);
-        font-weight: bold;
-        width: 100vw;
-        font-size: 16px;
-        max-width: 80%;
-        border-radius: 10px;
-        padding: 10px 20px;
-        text-align: center;
-        cursor: pointer;
-        border: none;
-        box-sizing: border-box;
-        margin-bottom: 15px;
-    }
-    
-    .styled-input {
-        border: 2px solid rgb(56, 166, 230);
-        top: 5%;
-        border-radius: 12px;
-        padding: 14px;
-        font-size: 18px;
-        width: 60%;
-        height: 32px;
-        box-sizing: border-box;
-        background-color: #f9f9f9;
-        color: rgb(56, 166, 230);
-        text-align: center;
-        cursor: not-allowed;
-    }
-
-    .styled-input2-container {
-        display: flex;
-        align-items: center;
-        position: absolute;
-        margin-top: 91%;
-    }
-    
-    .styled-input2 {
-        border: 2px solid rgb(56, 166, 230);
-        border-radius: 12px;
-        padding: 14px;
-        font-size: 18px;
-        width: 90%;
-        height: 32px;
-        box-sizing: border-box;
-        background-color: #f9f9f9;
-        color: rgb(56, 166, 230);
-        text-align: center;
-        cursor: not-allowed;
-    }
-    
-    .update-btn {
-        background-color: rgb(56, 166, 230);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        width: 40px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        cursor: pointer;
-        margin-left: 10px;
-        transition: background-color 0.3s;
-    }
-    
-    .update-btn:hover {
-        background-color: rgb(40, 130, 190);
-    }
-    
-    .styled-input[readonly] {
-        background-color: #ffffff;
-    }
-    .texts-main {
-        text-align: center;
-    }
-    
-    .mini-btn {
-        color: white;
-        background-color: rgb(56, 166, 230);
-        font-weight: bold;
-        border-radius: 8px;
-        width: 40%;
-        height: 33px;
-        padding: 5px 15px;
-        font-size: 20px;
-        border: none;
-        cursor: pointer;
-        margin: 6px;
-    }
-    
-    .button-group {
-        display: flex;
-        position: absolute;
-        justify-content: center;
-        gap: 7px;
-        margin-top: 46%;
-    }
-
-}
-
-.links-container {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.header {
     position: absolute;
-    top: 80%; 
-    left: 50%;
-    transform: translateX(-50%);
+    top: 5px;
+    right: -5px;
+    margin: 16px;
+}
+
+/* Styling for input fields */
+.styled-input {
+    border: 2px solid rgb(200, 200, 200); /* Lighter border for better contrast */
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 18px;
+    width: 60%;
+    height: 32px;
+    box-sizing: border-box;
+    background-color: white; /* White background */
+    color: black; /* Black text */
+    text-align: center;
+    margin-top: 20px;
+    font-family: "Aeroport";
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern look */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.styled-input:focus {
+    border-color: rgb(100, 100, 255); /* Change border color on focus */
+    box-shadow: 0 4px 12px rgba(0, 0, 255, 0.3); /* Enhance shadow on focus */
+    outline: none;
+}
+
+.slider-container {
+    margin-top: 10px;
+}
+
+.styled-input2-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
-  }
-  
-  .links-container h3 {
-    margin: 2px 0;
-    color: #87CEFA; 
-  }
-  
-  .link {
-    color: #2e9ce0; 
-    text-decoration: none;
-  }
-  
-  .link:hover {
-    text-decoration: underline;
-  }
-  
+    margin-top: 10px;
+}
+
+/* Styling for second input field */
+.styled-input2 {
+    border: 2px solid rgb(200, 200, 200); /* Lighter border for consistency */
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 18px;
+    width: 90%;
+    height: 32px;
+    box-sizing: border-box;
+    font-family: "Aeroport";
+    background-color: white; /* White background */
+    color: black; /* Black text */
+    text-align: center;
+    cursor: not-allowed;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.update-btn {
+    background-color: rgb(255, 255, 255);
+    color: rgb(94, 94, 94);
+    border: none;
+    border-radius: 12px;
+    width: 40px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.update-btn:hover {
+    background-color: rgb(230, 230, 230);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+}
+
+.get-btn {
+    position: absolute;
+    margin-top: 100px;
+}
+
+.button-1,
+.button-2 {
+  position: absolute;
+  width: 80%; /* Ширина кнопки 80% */
+  left: 50%; /* Центрируем кнопки по горизонтали */
+  transform: translateX(-50%); /* Смещаем их на 50% ширины для центрирования */
+  padding: 8px; /* Уменьшенная высота кнопки */
+  font-size: 16px;
+  font-family: 'Aeroport', sans-serif; /* Используем шрифт Aeroport */
+  border: 2px solid white; /* Обводка белого цвета */
+  border-radius: 8px;
+  text-align: center;
+  display: block;
+  background: linear-gradient(45deg, #582661, #522659, #402445); /* Градиент */
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-1 {
+  top: 70%; /* Положение первой кнопки ниже центра экрана */
+}
+
+.button-2 {
+  top: 79%; /* Положение второй кнопки ниже первой */
+}
+
+.button-1:hover,
+.button-2:hover {
+  opacity: 0.8; /* Эффект при наведении */
+}

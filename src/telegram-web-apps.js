@@ -62,6 +62,14 @@
       }
     }
 
+    function onMainButtonPressed() {
+      console.log('Main button pressed');
+      if (isActive) {
+        receiveWebViewEvent('mainButtonClicked');
+      } else {
+        console.warn('MainButton is inactive');
+      }
+    }
     
   
     function urlParseHashParams(locationHash) {

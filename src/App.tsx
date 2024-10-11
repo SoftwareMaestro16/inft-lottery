@@ -163,7 +163,7 @@ function App() {
                         </div>
 
                         <div className="big-buttons">
-                            <button className="button-1" onClick={() => window.open('https://tonviewer.com', '_blank')}>
+                            <button className="button-1" onClick={() => window.open('https://tonviewer.com/EQC-aSKR5lmgxGjm3S-_abJVT8KCKFtoRbHBc4ucp37wsYUe', '_blank')}>
                                 Open Tonviewer
                             </button>
                             <button className="button-2" onClick={() => window.open('https://dedust.io/swap/TON/INFT?amount=1000000000', '_blank')}>

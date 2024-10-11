@@ -69,9 +69,8 @@
       } else {
         console.warn('MainButton is inactive');
       }
-    }
-    
-  
+    } 
+      
     function urlParseHashParams(locationHash) {
       locationHash = locationHash.replace(/^#/, '');
       var params = {};

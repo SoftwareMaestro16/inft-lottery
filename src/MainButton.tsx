@@ -1,5 +1,4 @@
-// MainButton.tsx
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { WebApp } from "./sdk";
 
 interface MainButtonProps {
@@ -22,7 +21,11 @@ export const MainButton: FC<MainButtonProps> = ({
   onClick,
   progress,
 }) => {
+  const [_, forceUpdate] = useState(false);
+
   useEffect(() => {
+    forceUpdate((prev) => !prev); // Принудительное обновление
+
     return () => {
       mainButton.hide();
       mainButton.enable();
@@ -71,42 +74,6 @@ export const MainButton: FC<MainButtonProps> = ({
       };
     }
   }, [onClick]);
-
-  useEffect(() => {
-    if (text) {
-      mainButton.setText(text);
-      if (!mainButton.isVisible) {
-        mainButton.show();
-      }
-    } else if (mainButton.isVisible) {
-      mainButton.hide();
-    }
-  }, [text]);
-  
-  useEffect(() => {
-    if (onClick) {
-      WebApp.MainButton.onClick(onClick);  // Регистрируем обработчик
-      return () => {
-        WebApp.MainButton.offClick(onClick);  // Очищаем обработчик при размонтировании компонента
-      };
-    } else {
-      console.warn("No onClick handler passed to MainButton");
-    }
-  }, [onClick]);
-  
-  useEffect(() => {
-    if (onClick) {
-      console.log("Registering onClick event for MainButton");
-      WebApp.MainButton.onClick(onClick);
-      return () => {
-        console.log("Cleaning up onClick event");
-        WebApp.MainButton.offClick(onClick);
-      };
-    } else {
-      console.warn("No onClick handler passed to MainButton");
-    }
-  }, [onClick]);
-  
 
   return null;
 };

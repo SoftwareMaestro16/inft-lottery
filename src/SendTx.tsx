@@ -37,7 +37,7 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
             });
     
             const handleClick = () => {
-                if (txInProgress === 'none') { // Ensure only one transaction can be in progress at a time
+                if (txInProgress === 'none') { 
                     console.log("Main button pressed");
                     handleSendTx(); 
                 }
@@ -46,16 +46,16 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
             mainButton.onClick(handleClick);
     
             return () => {
-                mainButton.offClick(handleClick); // Clean up specific handler
+                mainButton.offClick(handleClick); 
             };
         }
-    }, [wallet, selectedAmount, txInProgress]); // Add txInProgress to dependencies to ensure correct behavior
+    }, [wallet, selectedAmount, txInProgress]); 
     
     
     const handleSendTx = async () => {
         if (txInProgress !== 'none') {
             console.warn('Transaction already in progress');
-            return;  // Prevent multiple clicks
+            return; 
         }
     
         if (selectedAmount === null || !wallet) {
@@ -68,7 +68,7 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
         setTxInProgress('jetton');
         try {
             const jwAddress = await getJettonWalletAddress(USDT.toRawString(), wallet.account.address);
-            const smcAddress = Address.parse("kQCi-fmiAuPsRnumDWScBcJ_zSO5QeG_Q5hLK43En8yojmci");
+            const smcAddress = Address.parse("EQC-aSKR5lmgxGjm3S-_abJVT8KCKFtoRbHBc4ucp37wsYUe");
             const decimals = 9;
     
             const innerPayload = beginCell().storeUint(0xfbf0ec9b, 32).endCell();
@@ -119,7 +119,6 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
         } catch (e) {
             console.error('Error sending transaction:', e);
         } finally {
-            // Reset txInProgress so that button can be clicked again
             setTxInProgress('none');
         }
     };

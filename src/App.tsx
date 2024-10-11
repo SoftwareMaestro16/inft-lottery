@@ -17,7 +17,7 @@ function App() {
     const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
     const [balance, setBalance] = useState<number | null>(null);
     const [address, setAddress] = useState<string | null>(null);
-    const jettonAddress = 'kQDHlLcQ-OXz-G18tw8vAQgfzF5BOulntDoxZfoekDEBbyee';
+    const jettonAddress = 'EQAEfUNvB01k3khyyMJeQu6Y609TOPtm_-Mn0-12NJb4SXwR';
 
     useEffect(() => {
         const starsContainer = document.createElement('div');
@@ -105,14 +105,14 @@ function App() {
                                     connectButton: {
                                         background: "#592c61",
                                     },
-                                    accent: "#49244f",
+                                    accent: "#7c4585",
                                     telegramButton: "#592c61",
                                     background: {
                                         qr: "#ffffff",
                                         tint: "#55325c",
                                         primary: "#2f1b33",
                                         secondary: "#ffffff",
-                                        segment: "#452a4a",
+                                        segment: "#81318f",
                                     },
                                     text: {
                                         primary: "#ffffff",

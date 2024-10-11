@@ -79,7 +79,7 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
                 .storeAddress(smcAddress)
                 .storeUint(0, 2)
                 .storeUint(0, 1)
-                .storeCoins(toNano("0.0555"))
+                .storeCoins(toNano("0.056"))
                 .storeBit(1)
                 .storeRef(innerPayload)
                 .endCell();
@@ -91,7 +91,7 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
                 messages: [
                     {
                         address: jwAddress.toString(),
-                        amount: "87200000",
+                        amount: "91200000",
                         payload
                     }
                 ]

@@ -73,6 +73,28 @@ export const MainButton: FC<MainButtonProps> = ({
   }, [onClick]);
 
   useEffect(() => {
+    if (text) {
+      mainButton.setText(text);
+      if (!mainButton.isVisible) {
+        mainButton.show();
+      }
+    } else if (mainButton.isVisible) {
+      mainButton.hide();
+    }
+  }, [text]);
+  
+  useEffect(() => {
+    if (onClick) {
+      WebApp.MainButton.onClick(onClick);  // Регистрируем обработчик
+      return () => {
+        WebApp.MainButton.offClick(onClick);  // Очищаем обработчик при размонтировании компонента
+      };
+    } else {
+      console.warn("No onClick handler passed to MainButton");
+    }
+  }, [onClick]);
+  
+  useEffect(() => {
     if (onClick) {
       console.log("Registering onClick event for MainButton");
       WebApp.MainButton.onClick(onClick);

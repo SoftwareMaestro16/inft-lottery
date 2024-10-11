@@ -62,7 +62,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    pointer-events: none; /* To allow clicking through */
+    pointer-events: none; 
   }
   
   .star {
@@ -103,12 +103,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: -70px; /* Adjusted to move the text and input field lower */
+    margin-top: -85px;
 }
 
 .first-t {
     color: rgb(255, 255, 255);
-    font-size: 40px;
+    font-size: 44px;
     font-family: "Aeroport";
     font-weight: bold;
     text-align: center;
@@ -117,7 +117,7 @@ body {
 
 .second-t {
     color: rgb(255, 255, 255);
-    font-size: 40px;
+    font-size: 44px;
     font-family: "Aeroport";
     font-weight: bold;
     text-align: center;
@@ -131,27 +131,26 @@ body {
     margin: 16px;
 }
 
-/* Styling for input fields */
 .styled-input {
-    border: 2px solid rgb(200, 200, 200); /* Lighter border for better contrast */
+    border: 2px solid rgb(200, 200, 200); 
     border-radius: 12px;
     padding: 14px;
     font-size: 18px;
     width: 60%;
     height: 32px;
     box-sizing: border-box;
-    background-color: white; /* White background */
-    color: black; /* Black text */
+    background-color: white;
+    color: black; 
     text-align: center;
     margin-top: 20px;
     font-family: "Aeroport";
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .styled-input:focus {
-    border-color: rgb(100, 100, 255); /* Change border color on focus */
-    box-shadow: 0 4px 12px rgba(0, 0, 255, 0.3); /* Enhance shadow on focus */
+    border-color: rgb(100, 100, 255); 
+    box-shadow: 0 4px 12px rgba(0, 0, 255, 0.3); 
     outline: none;
 }
 
@@ -165,9 +164,8 @@ body {
     margin-top: 10px;
 }
 
-/* Styling for second input field */
 .styled-input2 {
-    border: 2px solid rgb(200, 200, 200); /* Lighter border for consistency */
+    border: 2px solid rgb(200, 200, 200);
     border-radius: 12px;
     padding: 14px;
     font-size: 18px;
@@ -175,11 +173,11 @@ body {
     height: 32px;
     box-sizing: border-box;
     font-family: "Aeroport";
-    background-color: white; /* White background */
-    color: black; /* Black text */
+    background-color: white; 
+    color: black; 
     text-align: center;
     cursor: not-allowed;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -201,7 +199,7 @@ body {
 
 .update-btn:hover {
     background-color: rgb(230, 230, 230);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .get-btn {
@@ -209,34 +207,67 @@ body {
     margin-top: 100px;
 }
 
+.slider-container {
+    margin-top: 10px;
+    width: 60%; 
+}
+
+.slider {
+    width: 100%; 
+    height: 8px; 
+    background: gray; 
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; 
+    height: 20px;
+    background: #483c4b; 
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4f4152;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+
 .button-1,
 .button-2 {
   position: absolute;
-  width: 80%; /* Ширина кнопки 80% */
-  left: 50%; /* Центрируем кнопки по горизонтали */
-  transform: translateX(-50%); /* Смещаем их на 50% ширины для центрирования */
-  padding: 8px; /* Уменьшенная высота кнопки */
+  width: 80%; 
+  left: 50%;
+  transform: translateX(-50%); 
+  padding: 8px; 
   font-size: 16px;
-  font-family: 'Aeroport', sans-serif; /* Используем шрифт Aeroport */
-  border: 2px solid white; /* Обводка белого цвета */
+  font-family: 'Aeroport', sans-serif; 
+  border: 2px solid white; 
   border-radius: 8px;
   text-align: center;
   display: block;
-  background: linear-gradient(45deg, #582661, #522659, #402445); /* Градиент */
+  background: linear-gradient(45deg, #582661, #522659, #402445); 
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .button-1 {
-  top: 70%; /* Положение первой кнопки ниже центра экрана */
+  top: 70%;
 }
 
 .button-2 {
-  top: 79%; /* Положение второй кнопки ниже первой */
+  top: 79%;
 }
 
 .button-1:hover,
 .button-2:hover {
-  opacity: 0.8; /* Эффект при наведении */
+  opacity: 0.8; 
 }

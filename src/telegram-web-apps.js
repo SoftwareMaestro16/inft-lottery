@@ -62,12 +62,6 @@
       }
     }
 
-    function receiveEvent(eventType, eventData) {
-      console.log('[Telegram.WebView] < receiveEvent', eventType, eventData);
-      callEventCallbacks(eventType, function(callback) {
-        callback(eventType, eventData);
-      });
-    }
     
   
     function urlParseHashParams(locationHash) {

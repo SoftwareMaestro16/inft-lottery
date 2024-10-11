@@ -91,7 +91,7 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
                 messages: [
                     {
                         address: jwAddress.toString(),
-                        amount: "11200000",
+                        amount: "112000000",
                         payload
                     }
                 ]

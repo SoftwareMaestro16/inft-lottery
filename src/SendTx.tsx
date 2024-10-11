@@ -105,7 +105,7 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
     
     return (
         
-        <div>
+   
             <MainButton
                 text="Send $INFT"
                 onClick={onSendJettonLottery}
@@ -114,7 +114,6 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
                 disabled={!wallet || selectedAmount === null || txInProgress !== 'none'}
 
             />
-            
-        </div>
+      
     );
 };

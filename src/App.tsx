@@ -132,6 +132,7 @@ function App() {
           </TonConnectUIProvider>
 
           <div className="texts-main">
+            
             <h1 className="first-t">$INFT Jetton</h1>
             <h2 className="second-t">Lottery</h2>
             <input type="number" className="styled-input" value={selectedAmount ?? ''} onChange={handleAmountChange} />

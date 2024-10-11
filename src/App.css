@@ -2,6 +2,48 @@ body {
     background: linear-gradient(75deg, rgb(10, 10, 10), rgb(75, 30, 83));
 }
 
+@font-face {
+    font-family: 'AeroportRegular';
+    src: url('./fonts/AEROPORT.OTF') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AeroportBold';
+    src: url('./fonts/AEROPORTBOLD.OTF') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AeroportLight';
+    src: url('./fonts/AEROPORTLIGHT.OTF') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AeroportMedium';
+    src: url('./fonts/AEROPORTMEDIUM.OTF') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'AeroportMono';
+    src: url('./fonts/AEROPORTMONO.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Aeroport';
+    src: url('./fonts/AEROPORT.OTF') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @keyframes fall {
     0% {
       transform: translateY(0) translateX(0);
@@ -66,7 +108,7 @@ body {
 
 .first-t {
     color: rgb(255, 255, 255);
-    font-size: 36px;
+    font-size: 40px;
     font-family: "Aeroport";
     font-weight: bold;
     text-align: center;
@@ -75,7 +117,7 @@ body {
 
 .second-t {
     color: rgb(255, 255, 255);
-    font-size: 36px;
+    font-size: 40px;
     font-family: "Aeroport";
     font-weight: bold;
     text-align: center;

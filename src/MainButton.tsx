@@ -72,5 +72,19 @@ export const MainButton: FC<MainButtonProps> = ({
     }
   }, [onClick]);
 
+  useEffect(() => {
+    if (onClick) {
+      console.log("Registering onClick event for MainButton");
+      WebApp.MainButton.onClick(onClick);
+      return () => {
+        console.log("Cleaning up onClick event");
+        WebApp.MainButton.offClick(onClick);
+      };
+    } else {
+      console.warn("No onClick handler passed to MainButton");
+    }
+  }, [onClick]);
+  
+
   return null;
 };

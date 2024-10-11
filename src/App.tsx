@@ -144,7 +144,7 @@ function App() {
                                 min="2000"
                                 max="15000"
                                 step="100"
-                                value={selectedAmount ?? 1000}
+                                value={selectedAmount ?? 2000}
                                 onChange={handleSliderChange}
                             />
                         </div>

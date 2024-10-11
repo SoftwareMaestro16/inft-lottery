@@ -35,7 +35,7 @@ export async function getJettonWalletAddress(jettonMasterAddress: string, wallet
 }
 
 export async function getJettonBalance(connectedAddress: string, jettonAddress: string) {
-    const url = `https://testnet.tonapi.io/v2/accounts/${connectedAddress}/jettons/${jettonAddress}?currencies=ton,usd,rub&supported_extensions=custom_payload`;
+    const url = `https://tonapi.io/v2/accounts/${connectedAddress}/jettons/${jettonAddress}?currencies=ton,usd,rub&supported_extensions=custom_payload`;
 
     console.log(`Fetching balance from URL: ${url}`);
 

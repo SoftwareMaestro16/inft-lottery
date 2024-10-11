@@ -24,7 +24,7 @@ export const MainButton: FC<MainButtonProps> = ({
   const [_, forceUpdate] = useState(false);
 
   useEffect(() => {
-    forceUpdate((prev) => !prev); // Принудительное обновление
+    forceUpdate((prev) => !prev); // Force update
 
     return () => {
       mainButton.hide();
@@ -41,9 +41,10 @@ export const MainButton: FC<MainButtonProps> = ({
     if (typeof progress === "boolean") {
       if (progress) {
         mainButton.showProgress();
-        mainButton.disable();
+        mainButton.disable(); // Disable button when showing progress
       } else {
         mainButton.hideProgress();
+        mainButton.enable();  // Re-enable button once progress is hidden
       }
     }
     if (typeof disabled === "boolean") {

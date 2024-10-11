@@ -13,11 +13,14 @@ interface SendTxProps {
 export const SendTx = ({ selectedAmount }: SendTxProps) => {
     const wallet = useTonWallet();
     const isRestored = useIsConnectionRestored();
-    const { open } = useTonConnectModal();
+    useTonConnectModal();
     const [tonConnectUi] = useTonConnectUI();
     const [txInProgress, setTxInProgress] = useState<'none' | 'jetton'>('none');
 
-    // useEffect для дебага состояния
+    useEffect(() => {
+        console.log("Selected Amount:", selectedAmount);
+    }, [selectedAmount]);
+    
     useEffect(() => {
         console.log("Wallet:", wallet);
         console.log("Selected Amount:", selectedAmount);
@@ -32,41 +35,43 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
                 color: "#4b2352",
                 text_color: "#FFFFFF",
             });
-
-            mainButton.onClick(() => {
-                console.log("Main button pressed");
-                handleSendTx(); 
-            });
+    
+            const handleClick = () => {
+                if (txInProgress === 'none') { // Ensure only one transaction can be in progress at a time
+                    console.log("Main button pressed");
+                    handleSendTx(); 
+                }
+            };
+    
+            mainButton.onClick(handleClick);
     
             return () => {
-                mainButton.offClick();
+                mainButton.offClick(handleClick); // Clean up specific handler
             };
         }
-    }, [wallet, selectedAmount]);  // Добавляем зависимости, чтобы перерегистрировать событие при изменении значений
+    }, [wallet, selectedAmount, txInProgress]); // Add txInProgress to dependencies to ensure correct behavior
     
-
+    
     const handleSendTx = async () => {
+        if (txInProgress !== 'none') {
+            console.warn('Transaction already in progress');
+            return;  // Prevent multiple clicks
+        }
+    
         if (selectedAmount === null || !wallet) {
             console.error('No amount selected or wallet is not connected');
             return;
         }
-
-        if (!wallet) {
-            open();
-            return;
-        }
+        console.log(selectedAmount);
+        
 
         setTxInProgress('jetton');
-
         try {
             const jwAddress = await getJettonWalletAddress(USDT.toRawString(), wallet.account.address);
             const smcAddress = Address.parse("kQCi-fmiAuPsRnumDWScBcJ_zSO5QeG_Q5hLK43En8yojmci");
             const decimals = 9;
-
-            const innerPayload = beginCell()
-                .storeUint(0xfbf0ec9b, 32)
-                .endCell();
-
+    
+            const innerPayload = beginCell().storeUint(0xfbf0ec9b, 32).endCell();
             const jwPayload = beginCell()
                 .storeUint(0xf8a7ea5, 32)
                 .storeUint(0, 64)
@@ -78,9 +83,9 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
                 .storeBit(1)
                 .storeRef(innerPayload)
                 .endCell();
-
+    
             const payload = jwPayload.toBoc().toString('base64');
-
+    
             const tx: SendTransactionRequest = {
                 validUntil: Math.round(Date.now() / 1000) + 60 * 5,
                 messages: [
@@ -91,19 +96,20 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
                     }
                 ]
             };
-
+    
             const result = await tonConnectUi.sendTransaction(tx, {
                 modals: 'all',
                 notifications: ['success', 'error']
             });
-
+    
             if (!result || !result.boc) {
                 console.error('No result received from transaction request');
                 return;
             }
+    
             const imMsgCell = Cell.fromBase64(result.boc);
             const inMsgHash = imMsgCell.hash().toString('hex');
-
+    
             try {
                 const tx = await waitForTx(inMsgHash);
                 console.log(tx);
@@ -113,10 +119,12 @@ export const SendTx = ({ selectedAmount }: SendTxProps) => {
         } catch (e) {
             console.error('Error sending transaction:', e);
         } finally {
+            // Reset txInProgress so that button can be clicked again
             setTxInProgress('none');
         }
     };
-
+    
+    
     if (!isRestored) {
         return null;
     }

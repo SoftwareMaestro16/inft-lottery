@@ -49,8 +49,6 @@ function App() {
         };
     }, []);
 
-    
-
     useEffect(() => {
         const isTgCheck = Boolean(window.Telegram?.WebApp?.initData);
 
